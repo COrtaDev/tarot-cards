@@ -1,12 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Card from './Components/Card';
+import Deck from './Components/Deck';
+import { getMajorArcana } from './Helpers/getCards';
+
+
+
 
 function App() {
+  const [deck, setDeck] = useState(null);
+
+  useEffect(() => {
+    if (deck) return;
+    async function getDeck() {
+      const deck = await getMajorArcana();
+      setDeck(deck);
+    };
+    getDeck();
+  })
+  // console.log(deck);
   return (
     <>
       <h1>Hello world!</h1>
       <p></p>
-      <Card />
+      <Deck deck={deck}/>
+      
       <p></p>
     </>
   );
