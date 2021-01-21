@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Card from './Components/Card';
 import Deck from './Components/Deck';
 import { getMajorArcana } from './Helpers/getCards';
 
@@ -17,13 +16,11 @@ function App() {
     };
     getDeck();
   })
-  // console.log(deck);
   return (
     <>
       <h1>Hello world!</h1>
       <p></p>
       <Deck deck={deck}/>
-      
       <p></p>
     </>
   );

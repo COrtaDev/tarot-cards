@@ -1,8 +1,5 @@
-import React, { Component, useEffect, useState } from 'react';
-import wiki from 'wikijs';
+import React from 'react';
 import Card from './Card';
-import { getMajorArcana } from '../Helpers/getCards';
-
 
 const Deck = (props) => {
 
