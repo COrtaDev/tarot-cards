@@ -10,6 +10,13 @@ export async function getMajorArcana() {
     return deck;
 }
 
+export async function getMinorArcana(){
+    const page = await wiki().page('Minor_Arcana');
+    const [tables] = await page.tables();
+    let deck = await buildDeck(tables);
+
+}
+
 function buildDeck(tables) {
     const deck = tables.map((table) => {
         const queryString = makeQueryString(table.card);
@@ -57,4 +64,4 @@ async function getImgUrl(queryString) {
     }
 };
 
-export default getMajorArcana;
+// export default getMajorArcana;
