@@ -16,6 +16,7 @@ function App() {
     };
     getDeck();
   })
+  console.log(deck);
   return (
     <>
       <h1>Hello world!</h1>

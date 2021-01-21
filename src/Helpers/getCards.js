@@ -3,13 +3,17 @@ import wiki from 'wikijs';
 export async function getMajorArcana() {
     const page = await wiki().page('Major_Arcana');
     const [tables] = await page.tables();
-    const deck = await buildDeck(tables);
-    console.log(deck)
+    let deck = await buildDeck(tables);
+    // console.log(deck)
+    for (let i = 0; i < deck.length; i++) {
+        deck[i]['url'] = await getImgUrl(deck[i].queryString);
+    }
+    // console.log(deck)
     return deck;
 }
 
 function buildDeck(tables) {
-    const deck = tables.map(table => {
+    const deck = tables.map((table) => {
         const queryString = makeQueryString(table.card);
         if (table.card.startsWith("Strength")) {
             return (
@@ -44,5 +48,15 @@ function makeQueryString(str) {
     str = str + "_(Tarot_card)";
     return str;
 }
+
+async function getImgUrl(queryString) {
+    const page = await wiki().page(queryString);
+    const rawImg = await page.rawImages();
+    for (let i = 0; i < rawImg.length; i++) {
+        if (rawImg[i].title.includes("RWS")) {
+            return (rawImg[i].imageinfo[0].url)
+        }
+    }
+};
 
 export default getMajorArcana;
