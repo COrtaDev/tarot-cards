@@ -2,7 +2,7 @@ import React from 'react';
 import Card from './Card';
 
 const Deck = (props) => {
-    
+
     if (!props.deck) return null;
     const cards = props.deck.map((card, i) => {
         return (
@@ -12,7 +12,7 @@ const Deck = (props) => {
 
     return (
         <>
-            <div>
+            <div style={{ display: 'flex', flexDirection: 'row',flexWrap:'wrap' }}>
                 {cards}
             </div>
         </>

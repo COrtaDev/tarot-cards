@@ -4,11 +4,9 @@ export async function getMajorArcana() {
     const page = await wiki().page('Major_Arcana');
     const [tables] = await page.tables();
     let deck = await buildDeck(tables);
-    // console.log(deck)
     for (let i = 0; i < deck.length; i++) {
         deck[i]['url'] = await getImgUrl(deck[i].queryString);
     }
-    // console.log(deck)
     return deck;
 }
 

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Deck from './Components/Deck';
 import { getMajorArcana } from './Helpers/getCards';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 
@@ -16,10 +17,9 @@ function App() {
     };
     getDeck();
   })
-  console.log(deck);
   return (
     <>
-      <h1>Hello world!</h1>
+      {/* <h1>Hello world!</h1> */}
       <p></p>
       <Deck deck={deck}/>
       <p></p>
