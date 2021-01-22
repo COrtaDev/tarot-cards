@@ -2,6 +2,7 @@ import React from 'react';
 import Card from './Card';
 
 const Deck = (props) => {
+    console.log(props.deck)
     let cards;
     if (!props.deck) return null;
     if (props.deck.id === 'major') {

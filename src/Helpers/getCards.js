@@ -20,8 +20,8 @@ export async function getMinorArcana() {
     const page = await wiki().page('Minor_Arcana');
     const images = await page.images();
     const links = await page.links();
-    console.log(links)
     const deck = buildSuits(images);
+    addQueryStringToMinor(deck, links)
     return (
         {
             id: 'minor',
@@ -37,6 +37,7 @@ function buildDeck(tables) {
         if (table.card.startsWith("Strength")) {
             return (
                 {
+                    id: Number(table.number),
                     cardName: "Strength",
                     queryString: queryString,
                 }
@@ -45,6 +46,7 @@ function buildDeck(tables) {
         if (table.card.startsWith("Justice")) {
             return (
                 {
+                    id: Number(table.number),
                     cardName: "Justice",
                     queryString: queryString,
                 }
@@ -52,6 +54,7 @@ function buildDeck(tables) {
         };
         return (
             {
+                id: Number(table.number),
                 cardName: table.card,
                 queryString: queryString,
             }
@@ -66,6 +69,19 @@ function makeQueryString(str) {
     str = str.replaceAll(" ", "_")
     str = str + "_(Tarot_card)";
     return str;
+};
+
+function addQueryStringToMinor(deck, links) {
+    console.log(deck, links);
+    deck.forEach(suit => {
+        suit.forEach(card => {
+            console.log(card)
+            let query = links.filter(link => link.includes(card.cardName));
+            console.log(query);
+            [card['queryString']] = query;
+        })
+    });
+    console.log(deck);
 };
 
 async function getImgUrl(queryString) {
@@ -95,7 +111,7 @@ function buildSuits(strArr) {
 
 function buildCardFromSuit(suitArr, suit) {
     const cards = suitArr.map(card => {
-        const cardName = makeCardNameFromUrl(card, suit);
+        let cardName = makeCardNameFromUrl(card, suit);
         let id;
         for (let key in helper) {
             if (cardName.startsWith(helper[key])) {
@@ -109,6 +125,7 @@ function buildCardFromSuit(suitArr, suit) {
             cardName: cardName,
             imgUrl: card,
         });
+
     });
     return cards;
 }
@@ -117,7 +134,11 @@ function makeCardNameFromUrl(urlStr, suit) {
     const subStr = urlStr.slice(urlStr.indexOf(suit), urlStr.indexOf(".jpg"));
     for (let key in helper) {
         if (subStr.endsWith(key)) {
-            return `${helper[key]} of ${suit}`;
+            if (suit === 'Pents') {
+                return `${helper[key]} of Coins`;
+            } else {
+                return `${helper[key]} of ${suit}`;
+            }
         }
     }
 }
