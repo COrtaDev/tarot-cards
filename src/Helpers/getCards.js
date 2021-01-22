@@ -7,23 +7,28 @@ export async function getMajorArcana() {
     for (let i = 0; i < deck.length; i++) {
         deck[i]['url'] = await getImgUrl(deck[i].queryString);
     }
-    return deck;
-}
+    return (
+        {
+            id: 'major',
+            deckName: 'The Major Arcana',
+            cards: deck,
+        }
+    );
+};
 
 export async function getMinorArcana() {
     const page = await wiki().page('Minor_Arcana');
-    // const categories = await page.categories();
-    // const tables = await page.tables();
-    const sections = await page.sections();
-    const links = await page.links();
     const images = await page.images();
-    console.log(page);
-    console.log(images);
-    const suits = buildSuits(images);
-    // const [tables] = await page.tables();
-    // let deck = await buildDeck(tables);
-
-}
+    const deck = buildSuits(images);
+    // console.log(deck);
+    return (
+        {
+            id: 'minor',
+            deckName: "The Minor Arcana",
+            cards: deck,
+        }
+    );
+};
 
 function buildDeck(tables) {
     const deck = tables.map((table) => {
@@ -52,7 +57,7 @@ function buildDeck(tables) {
         )
     });
     return deck;
-}
+};
 
 function makeQueryString(str) {
     if (str.startsWith("Strength")) str = "Strength";
@@ -60,7 +65,7 @@ function makeQueryString(str) {
     str = str.replaceAll(" ", "_")
     str = str + "_(Tarot_card)";
     return str;
-}
+};
 
 async function getImgUrl(queryString) {
     const page = await wiki().page(queryString);
@@ -72,10 +77,64 @@ async function getImgUrl(queryString) {
     }
 };
 
-function buildSuits(strArr){
-    const wands = strArr.filter(imgUrl=>imgUrl.includes('Wands'));
-    console.log(wands);
+function buildSuits(strArr) {
+    const wands = strArr.filter(imgUrl => imgUrl.includes('Wands'));
+    const pents = strArr.filter(imgUrl => imgUrl.includes('Pents'));
+    const cups = strArr.filter(imgUrl => imgUrl.includes('Cups'));
+    const swords = strArr.filter(imgUrl => imgUrl.includes('Swords'));
+    const suits = [
+        buildCardFromSuit(wands, "Wands"),
+        buildCardFromSuit(pents, "Pents"),
+        buildCardFromSuit(cups, "Cups"),
+        buildCardFromSuit(swords, "Swords"),
+    ];
+    return suits;
+};
 
-
+function buildCardFromSuit(suitArr, suit) {
+    const cards = suitArr.map(card => {
+        const cardName = makeCardNameFromUrl(card, suit);
+        // console.log(cardName);
+        let id;
+        for (let key in helper) {
+            if (cardName.startsWith(helper[key])) {
+                id = key;
+                break;
+            }
+        }
+        // console.log(id);
+        return ({
+            id: id,
+            suit: suit,
+            cardName: cardName,
+            imgUrl: card,
+        });
+    });
+    return cards;
 }
-// export default getMajorArcana;
+
+function makeCardNameFromUrl(urlStr, suit) {
+    const subStr = urlStr.slice(urlStr.indexOf(suit), urlStr.indexOf(".jpg"));
+    for (let key in helper) {
+        if (subStr.endsWith(key)) {
+            return `${helper[key]} of ${suit}`;
+        }
+    }
+}
+
+const helper = {
+    '01': "Ace",
+    '02': "Two",
+    '03': "Three",
+    '04': "Four",
+    '05': "Five",
+    '06': "Six",
+    '07': "Seven",
+    '08': "Eight",
+    '09': "Nine",
+    '10': "Ten",
+    '11': "Page",
+    '12': "Knight",
+    '13': "Queen",
+    '14': "King",
+};

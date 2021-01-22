@@ -26,17 +26,17 @@ const SelectDeck = (props) => {
         }
     });
 
-    function minorArcanaSelected(event) {
-        setSelectedDeck('minor');
-        // setModalShow(false)
-        console.log(event, props, modalShow, selectedDeck)
-    }
+    // function minorArcanaSelected(event) {
+    //     setSelectedDeck('minor');
+    //     // setModalShow(false)
+    //     console.log(event, props, modalShow, selectedDeck)
+    // }
 
     if (deck) {
-        console.log(deck);
+        // console.log(deck);
         return (
             <>
-                <div><h1>The Major Arcana</h1></div>
+                <div><h1>{deck.deckName}</h1></div>
                 <p></p>
                 <Deck deck={deck} />
                 <p></p>
