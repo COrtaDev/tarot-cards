@@ -19,6 +19,8 @@ export async function getMajorArcana() {
 export async function getMinorArcana() {
     const page = await wiki().page('Minor_Arcana');
     const images = await page.images();
+    const links = await page.links();
+    console.log(links)
     const deck = buildSuits(images);
     return (
         {

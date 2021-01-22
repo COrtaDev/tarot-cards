@@ -26,14 +26,7 @@ const SelectDeck = (props) => {
         }
     });
 
-    // function minorArcanaSelected(event) {
-    //     setSelectedDeck('minor');
-    //     // setModalShow(false)
-    //     console.log(event, props, modalShow, selectedDeck)
-    // }
-
     if (deck) {
-        // console.log(deck);
         return (
             <>
                 <div><h1>{deck.deckName}</h1></div>
