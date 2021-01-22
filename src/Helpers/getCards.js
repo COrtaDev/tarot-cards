@@ -10,10 +10,18 @@ export async function getMajorArcana() {
     return deck;
 }
 
-export async function getMinorArcana(){
+export async function getMinorArcana() {
     const page = await wiki().page('Minor_Arcana');
-    const [tables] = await page.tables();
-    let deck = await buildDeck(tables);
+    // const categories = await page.categories();
+    // const tables = await page.tables();
+    const sections = await page.sections();
+    const links = await page.links();
+    const images = await page.images();
+    console.log(page);
+    console.log(images);
+    const suits = buildSuits(images);
+    // const [tables] = await page.tables();
+    // let deck = await buildDeck(tables);
 
 }
 
@@ -64,4 +72,10 @@ async function getImgUrl(queryString) {
     }
 };
 
+function buildSuits(strArr){
+    const wands = strArr.filter(imgUrl=>imgUrl.includes('Wands'));
+    console.log(wands);
+
+
+}
 // export default getMajorArcana;
