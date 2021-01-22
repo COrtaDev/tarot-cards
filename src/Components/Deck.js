@@ -2,8 +2,8 @@ import React from 'react';
 import Card from './Card';
 
 const Deck = (props) => {
-    console.log(props);
-    console.log(props.deck);
+    // console.log(props);
+    // console.log(props.deck);
     console.log(props.deck.cards);
     // const deck = [props.deck];
     // console.log(deck);

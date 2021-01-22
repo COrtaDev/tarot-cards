@@ -20,7 +20,6 @@ export async function getMinorArcana() {
     const page = await wiki().page('Minor_Arcana');
     const images = await page.images();
     const deck = buildSuits(images);
-    // console.log(deck);
     return (
         {
             id: 'minor',
@@ -88,13 +87,13 @@ function buildSuits(strArr) {
         buildCardFromSuit(cups, "Cups"),
         buildCardFromSuit(swords, "Swords"),
     ];
-    return suits;
+    const sortedSuits = suits.map(suit => sortDeck(suit));
+    return sortedSuits;
 };
 
 function buildCardFromSuit(suitArr, suit) {
     const cards = suitArr.map(card => {
         const cardName = makeCardNameFromUrl(card, suit);
-        // console.log(cardName);
         let id;
         for (let key in helper) {
             if (cardName.startsWith(helper[key])) {
@@ -102,9 +101,8 @@ function buildCardFromSuit(suitArr, suit) {
                 break;
             }
         }
-        // console.log(id);
         return ({
-            id: id,
+            id: Number(id),
             suit: suit,
             cardName: cardName,
             imgUrl: card,
@@ -120,6 +118,15 @@ function makeCardNameFromUrl(urlStr, suit) {
             return `${helper[key]} of ${suit}`;
         }
     }
+}
+
+function sortDeck(deck) {
+    const sorted = [];
+    while (sorted.length < 14) sorted.push(null);
+    for (let i = 0; i < deck.length; i++) {
+        sorted[(deck[i].id) - 1] = deck[i];
+    }
+    return sorted;
 }
 
 const helper = {
