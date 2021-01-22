@@ -3,7 +3,7 @@ import Card from './Card';
 
 const Deck = (props) => {
     // console.log(props);
-    // console.log(props.deck);
+    console.log(props.deck);
     console.log(props.deck.cards);
     // const deck = [props.deck];
     // console.log(deck);
@@ -16,7 +16,11 @@ const Deck = (props) => {
             )
         });
     } else if (props.deck.id === 'minor') {
-
+        cards = props.deck.cards.map(suit => suit.map(card => {
+            return (
+                <Card key={card.id} name={card.cardName} url={card.imgUrl} />
+            )
+        }))
     }
 
     return (
