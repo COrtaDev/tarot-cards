@@ -72,7 +72,7 @@ function makeQueryString(str) {
 };
 
 function addQueryStringToMinor(deck, links) {
-    console.log(deck, links);
+    // console.log(deck, links);
     deck.forEach(suit => {
         suit.forEach(card => {
             console.log(card)
@@ -81,7 +81,7 @@ function addQueryStringToMinor(deck, links) {
             [card['queryString']] = query;
         })
     });
-    console.log(deck);
+    // console.log(deck);
 };
 
 async function getImgUrl(queryString) {
