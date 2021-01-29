@@ -75,9 +75,9 @@ function addQueryStringToMinor(deck, links) {
     // console.log(deck, links);
     deck.forEach(suit => {
         suit.forEach(card => {
-            console.log(card)
+            // console.log(card)
             let query = links.filter(link => link.includes(card.cardName));
-            console.log(query);
+            // console.log(query);
             [card['queryString']] = query;
         })
     });
