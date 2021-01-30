@@ -1,30 +1,56 @@
 class TarotCard:
-    def __init__(self, name, suit, img, api_endpoint, deck):
-        self.name = name
-        self.suit = suit
-        self.img = img
-        self.api_endpoint = api_endpoint
-        self.deck = deck
+    def __init__(self, name='', suit='', img='', api_endpoint='', deck=''):
+        self._name = name
+        self._suit = suit
+        self._img = img
+        self._api_endpoint = api_endpoint
+        self._deck = deck
 
     @property
     def name(self):
         return self._name
 
+    @name.setter
+    def name(self, name):
+        return self.name
+
     @property
     def suit(self):
         return self._suit
+
+    @suit.setter
+    def suit(self, suit):
+        return self.suit
 
     @property
     def img(self):
         return self._img
 
+    @img.setter
+    def img(self, img):
+        return self.img
+
     @property
-    def api_endpoint(self)
-    return self._api_endpoint
+    def api_endpoint(self):
+        return self._api_endpoint
+
+    @api_endpoint.setter
+    def api_endpoint(self, api_endpoint):
+        return self.api_endpoint
 
     @property
     def deck(self):
         return self._deck
+
+    @deck.setter
+    def deck(self, deck):
+        return self.deck
+
+    def getImgUrl(self, api_endpoint):
+        
+
+    def __repr__(self):
+        return (f"TarotCard(name: {self.name}, suit: {self.suit}, img: {self.img}, api_endpoint: {self.api_endpoint}, deck: {self.deck})")
 
     # @img.setter
     # def img(self, img, suit, name)
