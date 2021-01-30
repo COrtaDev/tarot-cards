@@ -1,4 +1,9 @@
+# tarot_card.py
+"""Card class that represents a tarot card and its image file name."""
+
+
 class TarotCard:
+    
     def __init__(self, name='', suit='', img='', api_endpoint='', deck=''):
         self._name = name
         self._suit = suit
@@ -47,7 +52,7 @@ class TarotCard:
         return self.deck
 
     def getImgUrl(self, api_endpoint):
-        
+
 
     def __repr__(self):
         return (f"TarotCard(name: {self.name}, suit: {self.suit}, img: {self.img}, api_endpoint: {self.api_endpoint}, deck: {self.deck})")
