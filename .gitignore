@@ -24,3 +24,7 @@ yarn-debug.log*
 yarn-error.log*
 
 .vscode
+api/cards/card_example.py
+api/cards/carddataclass_example.py
+api/cards/deck2_example.py
+api/cards/deck_example.py
